@@ -1,56 +1,14 @@
 let gameArea;
 let gamePiece;
 let CanvasVar;
-
-function GameArea() {
-    this.canvas = document.getElementById("game-section");
-    CanvasVar = this.canvas;
-    this.canvas.width = 960;
-    this.canvas.height = 540;
-    this.context = this.canvas.getContext("2d");
-    this.pause = false;
-    this.frameNo = 0;
-    this.start = function() {
-        updateGameArea();
-        // this.interval = setInterval(updateGameArea, 20);
-    }
-    this.clear = function(){
-        this.context.clearRect(0, 0,
-          this.canvas.width, this.canvas.height);
-    }
-}
+let server_url = "";
+let debug_screen = document.getElementById("debug-screen");
+let game_session_websocket = "ws://" + server_url + "/ws/game/";
 
 function startGame(){
   gameArea = new GameArea();
   gamePiece = new Cube("red", 10, 120, "cube");
   gameArea.start();
-}
-
-function Cube(color, xcoord, ycoord, name){
-  this.width = 30;
-  this.height = 30;
-  this.x = xcoord;
-  this.y = ycoord;
-  this.speedX = 0;
-  this.speedY = 0;
-  this.name = name;
-  this.update = function() {
-    ctx = gameArea.context;
-    ctx.font = this.width + " " + this.height;
-    ctx.fillStyle = color;
-    ctx.fillText(this.name, this.x, (this.y + 30));
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-  }
-  this.newPos = function () {
-    let newX = this.x + this.speedX;
-    let newY = this.y + this.speedY;
-    if (0 < newX < (CanvasVar.width - 30)){
-      this.x = newX;
-    }
-    if (0 < newY < (CanvasVar.height - 30)){
-      this.y = newY;
-    }
-  }
 }
 
 function updateGameArea(){
@@ -82,3 +40,13 @@ function clearmove(){
 }
 
 startGame();
+
+// Set Player ID
+let s4 = () => {
+  return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+}
+
+let game_tag = document.getElementById("personal-id");
+game_tag.value = s4() + s4();

@@ -23,13 +23,17 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
 
-<!--  // TODO Add main section("Main page") for the basic info, user login/info(if user is logged in)-->
-<!--  // TODO Add canvas section where the user will be playing the game with other users-->
-<!--  // TODO Game session: canvas with cubes as players marking different positions-->
 <!--  // TODO Add js for connection with matchmaking websockets-->
 <!--  // TODO Add js for game session websockets-->
   <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
+  <p>Sample Game websocket build. Not actual project</p>
+  <label for="personal-id">Gamer ID: </label><input value="" id="personal-id" disabled/>
+  <label for="name-id">Player Name: </label><input value="" id="name-id" />
+  <button onclick="connect_matchmake()">Join matchmaking</button>
+  <label for="debug-screen">Debug Screen</label>
+  <br>
+  <textarea id="debug-screen" cols="100" rows="20">
+  <hr>
   <canvas id="game-section"></canvas>
   <div style="text-align:center;width:480px;">
     <button onclick="move('up')">UP</button><br><br>
@@ -43,6 +47,7 @@
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
   <script src="js/game.js"></script>
+  <script src="js/matchmake.js"></script>
 </body>
 
 </html>
