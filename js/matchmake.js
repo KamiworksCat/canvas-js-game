@@ -17,7 +17,10 @@ function connect_matchmake(){
   matchmake_websocket.onmessage = function (e) {
     let data = JSON.parse(e.data);
     let debug_message = data["debug"];
-    debug_screen.value += (debug_message + "\n");
+    let tag = document.createElement("p");
+    let text = document.createTextNode(debug_message);
+    tag.append(text);
+    debug_screen.appendChild(tag);
   }
-};
+}
 
