@@ -30,6 +30,12 @@
 <!--  // TODO Add js for game session websockets-->
   <!-- Add your site or application content here -->
   <p>Sample Game websocket build. Not actual project</p>
+  <p>
+    Start by entering your preferred name in the textbox below.
+  </p>
+  <p>
+    Press 'Join matchmaking' when you wish to enter into the game.
+  </p>
   <label for="personal-id">Gamer ID: </label><input value="" id="personal-id" disabled/>
   <label for="name-id">Player Name: </label><input value="" id="name-id" />
   <button onclick="connect_matchmake()">Join matchmaking</button>
@@ -39,12 +45,12 @@
   <div id="debug-screen"></div>
   <hr>
   <canvas id="game-section"></canvas>
-  <div style="text-align:center;width:480px;">
-    <button onclick="move('up')">UP</button><br><br>
-    <button onclick="move('left')">LEFT</button>
-    <button onclick="move('right')">RIGHT</button><br><br>
-    <button onclick="move('down')">DOWN</button>
-  </div>
+<!--  <div style="text-align:center;width:480px;">-->
+<!--    <button onclick="move('up')">UP</button><br><br>-->
+<!--    <button onclick="move('left')">LEFT</button>-->
+<!--    <button onclick="move('right')">RIGHT</button><br><br>-->
+<!--    <button onclick="move('down')">DOWN</button>-->
+<!--  </div>-->
   <script src="js/vendor/modernizr-3.8.0.min.js"></script>
   <script src="js/vendor/jquery-3.5.0.min.js" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.5.0.min.js"><\/script>')</script>
