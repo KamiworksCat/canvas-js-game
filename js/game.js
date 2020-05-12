@@ -42,24 +42,20 @@ function Cube(color, xcoord, ycoord, name){
   this.height = 30;
   this.x = xcoord;
   this.y = ycoord;
-  this.speedX = 0;
-  this.speedY = 0;
   this.name = name;
   this.update = function() {
     ctx = gameArea.context;
     ctx.font = this.width + " " + this.height;
     ctx.fillStyle = color;
-    ctx.fillText(this.name, this.x, (this.y + 30));
+    ctx.fillText(this.name, (this.x - 10), (this.y - 30));
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
-  this.newPos = function () {
-    let newX = this.x + this.speedX;
-    let newY = this.y + this.speedY;
-    if (0 < newX < (CanvasVar.width - 30)){
-      this.x = newX;
+  this.newPos = function (newX, newY) {
+    if (newX < (CanvasVar.width - 30) && newX > 0){
+      this.x += newX;
     }
-    if (0 < newY < (CanvasVar.height - 30)){
-      this.y = newY;
+    if (newY < (CanvasVar.height - 30) && newY > 0){
+      this.y += newY;
     }
   }
 }
@@ -80,4 +76,29 @@ function GameArea() {
         this.context.clearRect(0, 0,
           this.canvas.width, this.canvas.height);
     }
+}
+
+let player_colors = {
+  1: "red",
+  2: "green",
+  3: "blue",
+  4: "yellow"
+};
+
+let player_coord = {
+  1: {"x": 10, "y": 120},
+  2: {"x": 80, "y": 120},
+  3: {"x": 80, "y": 180},
+  4: {"x": 180, "y": 280}
+}
+
+function start_game(player_list){
+  gameArea = new GameArea();
+  for (let counter in player_list){
+    // Populate game pieces with player coordinate, color and name
+    // let player =
+  }
+  // Start the game
+  gamePiece = new Cube("red", 10, 120, "cube");
+  gameArea.start();
 }

@@ -1,7 +1,7 @@
 let gameArea;
 let gamePiece;
 let CanvasVar;
-let server_url = "";
+let server_url = "707f17c3.ngrok.io";
 let debug_screen = document.getElementById("debug-screen");
 let game_session_websocket = "ws://" + server_url + "/ws/game/";
 
@@ -39,8 +39,6 @@ function clearmove(){
   gamePiece.speedY = 0;
 }
 
-startGame();
-
 // Set Player ID
 let s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -50,3 +48,12 @@ let s4 = () => {
 
 let game_tag = document.getElementById("personal-id");
 game_tag.value = s4() + s4();
+
+
+// Add Debug Message
+function add_debug_message(text_message){
+  let tag = document.createElement("p");
+  let text = document.createTextNode(text_message);
+  tag.append(text);
+  debug_screen.appendChild(tag);
+}
