@@ -24,7 +24,7 @@ function connect_matchmake(){
     if (game_room_id !== undefined){
       // Game Room has been assigned and players are populated
       let player_data = data["players"];
-      let player_list = [];
+      let player_list = new Array(4);
       for (let counter = 0; counter > player_data.length; counter++){
         let data_array = player_data[counter].split(",");
         player_list.push({
@@ -33,6 +33,7 @@ function connect_matchmake(){
           "color": player_colors[(counter+1)]
         });
       }
+      console.log(player_list);
     }
     // TODO If websocket receive notification, nothing happens
     // TODO If receive data about player list and room id
