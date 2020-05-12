@@ -1,4 +1,4 @@
-let matchmaking_socket_url = "ws://" + server_url + "/ws/matchmake/lobby/";
+let matchmaking_socket_url = "wss://" + server_url + "/ws/matchmake/lobby/";
 
 let player_name = document.getElementById("name-id");
 
