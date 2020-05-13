@@ -1,7 +1,7 @@
 let gameArea;
 let gamePiece;
 let CanvasVar;
-let server_url = "707f17c3.ngrok.io";
+let server_url = "18f00ddf.ngrok.io";
 let debug_screen = document.getElementById("debug-screen");
 let game_session_websocket = "ws://" + server_url + "/ws/game/";
 
