@@ -92,9 +92,9 @@ let player_colors = ["red", "blue", "green", "yellow"];
 
 let player_coord = [
   {"x": 10, "y": 120},
-  {"x": 80, "y": 120},
-  {"x": 80, "y": 180},
-  {"x": 180, "y": 280}
+  {"x": 140, "y": 120},
+  {"x": 80, "y": 380},
+  {"x": 240, "y": 280}
 ]
 
 function start_game(){
