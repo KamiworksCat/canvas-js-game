@@ -70,7 +70,7 @@ function GameArea() {
     this.pause = false;
     this.frameNo = 0;
     this.start = function() {
-        updateGameArea();
+        UpdateGameArea();
         // this.interval = setInterval(updateGameArea, 20);
     }
     this.clear = function(){
