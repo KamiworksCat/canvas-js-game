@@ -25,22 +25,18 @@ function connect_matchmake(){
     if (game_room_id !== undefined){
       // Game Room has been assigned and players are populated
       let player_data = data["players"];
-      let player_list = new Array(4);
       for (let counter in player_data){
         let data_array = player_data[counter].split(",");
-        player_list.push({
-          "player_id": data_array[0],
+        player_list[data_array[0]] = {
           "player_name": data_array[1],
           "color": player_colors[counter],
           "coordinates": player_coord[counter]
-        });
+        }
       }
       add_debug_message("Closing matchmaking websocket");
       matchmake_websocket.close();
-      console.log(player_list);
+      start_game();
     }
-    // TODO If websocket receive notification, nothing happens
-    // TODO If receive data about player list and room id
     // TODO Proceed to assign data to html elements and close websocket
     // TODO Send data to game start function to populate players
   }

@@ -1,9 +1,12 @@
+// Set game area, game pieces and player_list
 let gameArea;
 let gamePiece;
 let CanvasVar;
+let player_list = {};
+
 let server_url = "18f00ddf.ngrok.io";
 let debug_screen = document.getElementById("debug-screen");
-let game_session_websocket = "ws://" + server_url + "/ws/game/";
+let game_session_websocket = "wss://" + server_url + "/ws/game/";
 
 function startGame(){
   gameArea = new GameArea();
