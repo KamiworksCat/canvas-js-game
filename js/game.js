@@ -84,7 +84,7 @@ function UpdateGameArea(){
   for (let counter in player_list){
     let player = player_list[counter]
     SetGamePiece(player.color, player.coordinates.x,
-      player.coordinates.y, player.name);
+      player.coordinates.y, player.player_name);
   }
 }
 
