@@ -67,7 +67,7 @@ function start_game(room_id){
 }
 
 function ConnectGameWebsockt(room_id){
-  game_websocket = new WebSocket((game_session_websocket + room_id));
+  game_websocket = new WebSocket((game_session_websocket + room_id + "/"));
   game_websocket.onopen = function (e) {
     add_debug_message("Signing into the game websocket");
     game_websocket.send(JSON.stringify({
