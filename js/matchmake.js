@@ -37,8 +37,6 @@ function connect_matchmake(){
       matchmake_websocket.close();
       start_game();
     }
-    // TODO Proceed to assign data to html elements and close websocket
-    // TODO Send data to game start function to populate players
   }
 
   matchmake_websocket.onerror = function (e) {

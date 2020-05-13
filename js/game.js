@@ -1,63 +1,18 @@
+let game_session_websocket = "wss://" + server_url + "/ws/game/";
+let game_websocket;
+
 let movement = {
   up: false,
   down: false,
   left: false,
   right: false
 }
-document.addEventListener('keydown', function(event) {
-  switch (event.key) {
-    case "a": // A
-      movement.left = true;
-      break;
-    case "w": // W
-      movement.up = true;
-      break;
-    case "d": // D
-      movement.right = true;
-      break;
-    case "s": // S
-      movement.down = true;
-      break;
-  }
-});
-document.addEventListener('keyup', function(event) {
-  switch (event.key) {
-    case "a": // A
-      movement.left = false;
-      break;
-    case "w": // W
-      movement.up = false;
-      break;
-    case "d": // D
-      movement.right = false;
-      break;
-    case "s": // S
-      movement.down = false;
-      break;
-  }
-});
-
-function Cube(color, xcoord, ycoord, name){
-  this.width = 30;
-  this.height = 30;
-  this.x = xcoord;
-  this.y = ycoord;
-  this.name = name;
-  this.newPos = function (newX, newY) {
-    if (newX < (CanvasVar.width - 30) && newX > 0){
-      this.x += newX;
-    }
-    if (newY < (CanvasVar.height - 30) && newY > 0){
-      this.y += newY;
-    }
-  }
-}
 
 function SetGamePiece(color, xcoord, ycoord, name){
   let ctx = gameArea.context;
-  ctx.font = "15px Arial";
+  ctx.font = "10px Arial";
   ctx.fillStyle = color;
-  ctx.fillText(name, (xcoord - 10), (ycoord - 10));
+  ctx.fillText(name, xcoord, (ycoord - 10));
   ctx.fillRect(xcoord, ycoord, 30, 30);
 }
 
@@ -91,14 +46,15 @@ function UpdateGameArea(){
 let player_colors = ["red", "blue", "green", "yellow"];
 
 let player_coord = [
-  {"x": 10, "y": 120},
-  {"x": 140, "y": 120},
+  {"x": 40, "y": 120},
+  {"x": 300, "y": 120},
   {"x": 80, "y": 380},
-  {"x": 240, "y": 280}
+  {"x": 420, "y": 280}
 ]
 
-function start_game(){
+function start_game(gamer_id){
   gameArea = new GameArea();
+  add_debug_message("Start game with game pieces");
   for (let counter in player_list){
     // Populate game pieces with player coordinate, color and name
     let player = player_list[counter];
@@ -106,4 +62,80 @@ function start_game(){
       player.coordinates.y, player.name);
   }
   gameArea.start();
+  game_websocket = new WebSocket((game_session_websocket + gamer_id));
+  add_debug_message("Connecting to game websocket");
+  ConnectGameWebsockt(gamer_id);
+}
+
+function ConnectGameWebsockt(gamer_id){
+  game_websocket = new WebSocket((game_session_websocket + gamer_id));
+  game_websocket.onopen = function (e) {
+    add_debug_message("Signing into the game websocket");
+    game_websocket.send(JSON.stringify({
+      "sign_in": gamer_id + "," + player_name
+    }));
+  }
+  game_websocket.onerror = function (e) {
+    console.log("Unexpected error has occurred");
+    console.log(e);
+  }
+  game_websocket.onclose = function (e) {
+    console.log(e);
+    console.log("Websocket unexpectedly closed");
+  }
+  game_websocket.onmessage = function (e) {
+    let data = JSON.parse(e.data);
+    let debug_message = data["debug"];
+    let game_message= data["game_message"];
+    add_debug_message(debug_message);
+    if (game_message !== undefined){
+      let select_player_id = game_message[0];
+      let player_movement = game_message[1];
+      let select_player = player_list[select_player_id];
+      player_move(select_player, player_movement);
+      UpdateGameArea();
+    }
+  }
+}
+
+function player_move(select_player, player_movement){
+  if (player_movement.up){
+    select_player.coordinates.y -= 10;
+  }
+  if (player_movement.down){
+    select_player.coordinates.y += 10;
+  }
+  if (player_movement.left){
+    select_player.coordinates.x -= 10;
+  }
+  if (player_movement.right){
+    select_player.coordinates.x += 10;
+  }
+}
+
+function move(direction){
+  if (direction === "up"){
+    movement.up = true;
+  }
+  else if (direction === "down"){
+    movement.down = true;
+  }
+  else if (direction === "left"){
+    movement.left = true;
+  }
+  else if (direction === "right"){
+    movement.right = true;
+  }
+  add_debug_message("Send direction movements to game websocket");
+  game_websocket.send(JSON.stringify({
+    "game_message": [gamer_id, movement]
+  }));
+  ResetMove();
+}
+
+function ResetMove(){
+  movement.up = false;
+  movement.down = false;
+  movement.left = false;
+  movement.right = false;
 }
