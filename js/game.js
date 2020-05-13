@@ -78,19 +78,14 @@ function GameArea() {
     }
 }
 
-let player_colors = {
-  1: "red",
-  2: "green",
-  3: "blue",
-  4: "yellow"
-};
+let player_colors = ["red", "blue", "green", "yellow"];
 
-let player_coord = {
-  1: {"x": 10, "y": 120},
-  2: {"x": 80, "y": 120},
-  3: {"x": 80, "y": 180},
-  4: {"x": 180, "y": 280}
-}
+let player_coord = [
+  {"x": 10, "y": 120},
+  {"x": 80, "y": 120},
+  {"x": 80, "y": 180},
+  {"x": 180, "y": 280}
+]
 
 function start_game(player_list){
   gameArea = new GameArea();

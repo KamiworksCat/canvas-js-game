@@ -35,7 +35,7 @@ function connect_matchmake(){
         player_list.push({
           "player_id": data_array[0],
           "player_name": data_array[1],
-          "color": player_colors[(counter+1)]
+          "color": player_colors[counter]
         });
       }
       add_debug_message("Closing matchmaking websocket");
