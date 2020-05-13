@@ -1,7 +1,6 @@
 let matchmaking_socket_url = "wss://" + server_url + "/ws/matchmake/lobby/";
 
 let player_name = document.getElementById("name-id");
-let matchmake_websocket = undefined;
 
 let player_data = JSON.stringify({
   "player_id": game_tag.value,
@@ -10,15 +9,12 @@ let player_data = JSON.stringify({
 
 function connect_matchmake(){
   add_debug_message("Attempt to connect to matchmaking");
-  if (matchmake_websocket === undefined)
-    matchmake_websocket = new WebSocket(matchmaking_socket_url);
+  let matchmake_websocket = new WebSocket(matchmaking_socket_url);
 
-    matchmake_websocket.onopen = function (e) {
-      add_debug_message("Sending player data");
-      matchmake_websocket.send(player_data);
-    };
-
-  matchmake_websocket.send(player_data);
+  matchmake_websocket.onopen = function (e) {
+    add_debug_message("Sending player data");
+    matchmake_websocket.send(player_data);
+  };
 
   matchmake_websocket.onmessage = function (e) {
     let data = JSON.parse(e.data);
@@ -35,7 +31,8 @@ function connect_matchmake(){
         player_list.push({
           "player_id": data_array[0],
           "player_name": data_array[1],
-          "color": player_colors[counter]
+          "color": player_colors[counter],
+          "coordinates": player_coord[counter]
         });
       }
       add_debug_message("Closing matchmaking websocket");
