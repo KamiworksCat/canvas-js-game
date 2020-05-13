@@ -30,7 +30,7 @@ function connect_matchmake(){
       // Game Room has been assigned and players are populated
       let player_data = data["players"];
       let player_list = new Array(4);
-      for (let counter = 0; counter > player_data.length; counter++){
+      for (let counter in player_data){
         let data_array = player_data[counter].split(",");
         player_list.push({
           "player_id": data_array[0],
