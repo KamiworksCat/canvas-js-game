@@ -55,9 +55,9 @@ function Cube(color, xcoord, ycoord, name){
 
 function SetGamePiece(color, xcoord, ycoord, name){
   let ctx = gameArea.context;
-  ctx.font = 30 + " " + 30;
+  ctx.font = "15px Arial";
   ctx.fillStyle = color;
-  ctx.fillText(name, (xcoord - 10), (ycoord - 30));
+  ctx.fillText(name, (xcoord - 10), (ycoord - 10));
   ctx.fillRect(xcoord, ycoord, 30, 30);
 }
 
