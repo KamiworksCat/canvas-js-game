@@ -56,4 +56,5 @@ function add_debug_message(text_message){
   let text = document.createTextNode(text_message);
   tag.append(text);
   debug_screen.appendChild(tag);
+  debug_screen.scrollTop = debug_screen.scrollHeight;
 }
