@@ -52,7 +52,7 @@ let player_coord = [
   {"x": 420, "y": 280}
 ]
 
-function start_game(gamer_id){
+function start_game(room_id){
   gameArea = new GameArea();
   add_debug_message("Start game with game pieces");
   for (let counter in player_list){
@@ -62,13 +62,12 @@ function start_game(gamer_id){
       player.coordinates.y, player.name);
   }
   gameArea.start();
-  game_websocket = new WebSocket((game_session_websocket + gamer_id));
   add_debug_message("Connecting to game websocket");
-  ConnectGameWebsockt(gamer_id);
+  ConnectGameWebsockt(room_id);
 }
 
-function ConnectGameWebsockt(gamer_id){
-  game_websocket = new WebSocket((game_session_websocket + gamer_id));
+function ConnectGameWebsockt(room_id){
+  game_websocket = new WebSocket((game_session_websocket + room_id));
   game_websocket.onopen = function (e) {
     add_debug_message("Signing into the game websocket");
     game_websocket.send(JSON.stringify({

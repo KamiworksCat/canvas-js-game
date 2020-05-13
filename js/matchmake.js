@@ -35,7 +35,7 @@ function connect_matchmake(){
       }
       add_debug_message("Closing matchmaking websocket");
       matchmake_websocket.close();
-      start_game();
+      start_game(game_room_id);
     }
   }
 
