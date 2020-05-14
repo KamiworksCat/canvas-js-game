@@ -35,6 +35,30 @@ function GameArea() {
 }
 
 function UpdateGameArea(){
+  game_websocket.onerror = function (e) {
+    console.log("Unexpected error has occurred");
+    console.log(e);
+  }
+  game_websocket.onclose = function (e) {
+    console.log(e);
+    console.log("Websocket unexpectedly closed");
+  }
+  game_websocket.onmessage = function (e) {
+    let data = JSON.parse(e.data);
+    let debug_message = data["debug"];
+    let game_message= data["game_message"];
+    add_debug_message(debug_message);
+    if (game_message !== undefined){
+      add_debug_message("Received player movements");
+      add_debug_message(game_message)
+      let select_player_id = game_message[0];
+      let player_movement = game_message[1];
+      let select_player = player_list[select_player_id];
+      add_debug_message("Player that is moving " + select_player.name);
+      add_debug_message("Player\'s movement: " + JSON.stringify(player_movement));
+      player_move(select_player, player_movement);
+    }
+  }
   gameArea.clear();
   for (let counter in player_list){
     let player = player_list[counter]
@@ -76,32 +100,6 @@ function ConnectGameWebsockt(room_id){
   }
 }
 
-game_websocket.onerror = function (e) {
-  console.log("Unexpected error has occurred");
-  console.log(e);
-}
-game_websocket.onclose = function (e) {
-  console.log(e);
-  console.log("Websocket unexpectedly closed");
-}
-game_websocket.onmessage = function (e) {
-  let data = JSON.parse(e.data);
-  let debug_message = data["debug"];
-  let game_message= data["game_message"];
-  add_debug_message(debug_message);
-  if (game_message !== undefined){
-    add_debug_message("Received player movements");
-    add_debug_message(game_message)
-    let select_player_id = game_message[0];
-    let player_movement = game_message[1];
-    let select_player = player_list[select_player_id];
-    add_debug_message("Player that is moving " + select_player.name);
-    add_debug_message("Player\'s movement: " + JSON.stringify(player_movement));
-    player_move(select_player, player_movement);
-    UpdateGameArea();
-  }
-}
-
 function player_move(select_player, player_movement){
   if (player_movement.up){
     select_player.coordinates.y -= 10;
@@ -135,6 +133,7 @@ function move(direction){
     "game_message": [gamer_id, movement]
   }));
   ResetMove();
+  UpdateGameArea();
 }
 
 function ResetMove(){
