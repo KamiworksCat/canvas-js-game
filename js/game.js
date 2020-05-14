@@ -75,10 +75,12 @@ function ConnectGameWebsockt(room_id){
     }));
   }
   game_websocket.onerror = function (e) {
+    gameArea.clear();
     console.log("Unexpected error has occurred");
     console.log(e);
   }
   game_websocket.onclose = function (e) {
+    gameArea.clear();
     console.log(e);
     console.log("Websocket unexpectedly closed");
   }

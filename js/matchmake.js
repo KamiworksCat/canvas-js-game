@@ -21,7 +21,6 @@ function connect_matchmake(){
     let debug_message = data["debug"];
     let game_room_id = data["game_room"];
     add_debug_message(debug_message);
-    console.log(data);
     if (game_room_id !== undefined){
       // Game Room has been assigned and players are populated
       let player_data = data["players"];
