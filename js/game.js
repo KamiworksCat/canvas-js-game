@@ -77,6 +77,8 @@ let player_coord = [
 ]
 
 function start_game(room_id){
+  add_debug_message("Connecting to game websocket");
+  ConnectGameWebsockt(room_id);
   gameArea = new GameArea();
   add_debug_message("Start game with game pieces");
   for (let counter in player_list){
@@ -86,8 +88,6 @@ function start_game(room_id){
       player.coordinates.y, player.name);
   }
   gameArea.start();
-  add_debug_message("Connecting to game websocket");
-  ConnectGameWebsockt(room_id);
 }
 
 function ConnectGameWebsockt(room_id){
