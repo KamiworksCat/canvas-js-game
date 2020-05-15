@@ -4,7 +4,7 @@ let gamePiece;
 let CanvasVar;
 let player_list = {};
 
-let server_url = "044dd57f.ngrok.io";
+let server_url = "700b16c2.ngrok.io";
 let debug_screen = document.getElementById("debug-screen");
 
 // Set Player ID
