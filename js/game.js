@@ -91,11 +91,10 @@ function ConnectGameWebsockt(room_id){
     add_debug_message(debug_message);
     if (game_message !== undefined){
       add_debug_message("Received player movements");
-      add_debug_message(game_message)
       let select_player_id = game_message[0];
       let player_movement = game_message[1];
       let select_player = player_list[select_player_id];
-      add_debug_message("Player that is moving " + select_player.name);
+      add_debug_message("Player that is moving " + select_player.player_name);
       add_debug_message("Player\'s movement: " + JSON.stringify(player_movement));
       player_move(select_player, player_movement);
       UpdateGameArea();
