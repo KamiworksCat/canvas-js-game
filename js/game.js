@@ -68,7 +68,7 @@ function start_game(room_id){
 }
 
 function ConnectGameWebsocket(room_id){
-  game_websocket = new WebSocket((game_session_websocket + room_id + "/"));
+  game_websocket = new ReconnectingWebSocket((game_session_websocket + room_id + "/"));
   game_websocket.onopen = function (e) {
     add_debug_message("Signing into the game websocket");
     game_websocket.send(JSON.stringify({
@@ -79,6 +79,11 @@ function ConnectGameWebsocket(room_id){
     gameArea.clear();
     console.log("Unexpected error has occurred");
     console.log(e);
+  }
+  game_websocket.onclose = function (e) {
+    gameArea.clear();
+    console.log(e);
+    console.log("Websocket unexpectedly closed");
   }
   game_websocket.onmessage = function (e) {
     let data = JSON.parse(e.data);
@@ -95,16 +100,6 @@ function ConnectGameWebsocket(room_id){
       player_move(select_player, player_movement);
       UpdateGameArea();
     }
-  }
-}
-
-let connect = async function(){
-  game_websocket.onclose = function (event) {
-    console.log("Reconnecting");
-    setTimeout(function () {
-      ConnectGameWebsocket(game_room);
-      connect();
-    }, 1000);
   }
 }
 
